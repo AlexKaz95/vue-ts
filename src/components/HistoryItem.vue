@@ -1,15 +1,13 @@
 <template>
     <div :class="trClass">
         <div>
-            {{ item.id }}
-        </div>
-        <div>
             {{ item.name }}
         </div>
         <div class="justify-self-start">
             {{ item.limit }}
         </div>
         <div class="actions flex gap-2 justify-self-end">
+            <RouterLink :to="{name: 'detail-record', params: {record: item.id}}" >open</RouterLink>
             <div @click="modalOpen=true, selected=item">edit</div>
             <div>delete</div>
         </div>
@@ -23,7 +21,7 @@
 
 <script setup lang="ts">
     import { computed, ref } from 'vue';
-    import { MODE } from '@/constants/formModes';
+    import { MODE } from '../constants/formModes';
     import ModalWindow from './ModalWindow.vue';
     import CategoryForm from './CategoryForm.vue';
 
@@ -31,12 +29,12 @@
     const selected = ref();
 
     type CategoryOptions = {
+        id: string;
         name: string;
         limit: number;
-        id: string;
     }
 
-    const props = defineProps<{
+    defineProps<{
         item: CategoryOptions;
     }>();
 
@@ -45,8 +43,7 @@
         'py-2',
         'px-4',
         'grid',
-        'grid-cols-4',
-        'grid-flow-row-dense'
+        'grid-cols-3',
     ]))
 
     const clickHandler = () => {

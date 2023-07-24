@@ -5,7 +5,7 @@
             placeholder="Type the category name" 
             type="text" 
             id="categories"
-            v-model="categories"
+            v-model="name"
             label="Categories"
             error="Required"
         />
@@ -31,20 +31,32 @@
     import Input from './Input.vue';
     import Button from './Button.vue';
     import { MODE } from '../constants/formModes'
+    import { useStore } from 'vuex';
 
     const props = defineProps<{
         mode: MODE;
         category?: any;
     }>();
 
-    const categories = ref(props.category?.name ?? '');
+    const store = useStore()
+    const name = ref(props.category?.name ?? '');
     const limit = ref(props.category?.limit ?? null) ;
+    const id = ref(props.category?.id);
 
     const clickHandler = () =>  {
-        if (props.mode === 'create') console.log('created')
-        else console.log('edited');
-    }
-    
+        if (props.mode === 'create') {
+            store.commit('ADD_CATEGORY', {cat: {
+                name,
+                limit
+            }})
+        } else {
+            store.commit('UPDATE_CATEGORY', {
+                id,
+                name,
+                limit
+            })
+        };
+    };    
 </script>
 
 <style scoped>

@@ -1,11 +1,13 @@
 <template>
     <div>
-        <h1>Planning</h1>
+        <PageTitle text="Planning"/>   
     </div>
 </template>
 
 <script setup lang="ts">
+    import PageTitle from '@/components/PageTitle.vue';
 
+    
 </script>
 
 <style scoped>

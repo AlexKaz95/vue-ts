@@ -1,11 +1,11 @@
 <template>
     <div>
-        <h1>Profile</h1>
+        <PageTitle text="Profile" />
     </div>
 </template>
 
 <script setup lang="ts">
-
+    import PageTitle from '@/components/PageTitle.vue';
 </script>
 
 <style scoped>

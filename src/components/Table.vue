@@ -7,7 +7,7 @@
 <script setup lang="ts">
 
     defineProps<{
-        list: any[];
+        list: any;
         itemComponent: any;
     }>();
 </script>
