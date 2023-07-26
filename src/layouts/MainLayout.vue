@@ -16,7 +16,10 @@
                 <div class="flex gap-x-3 self-end items-center">
                     <DropDown>
                         <template #button>
-                            <Icon :icon="userIcon" :size="32"/>
+                            <div class="flex items-center gap-x-2">
+                                <span>Alexandra</span>
+                                <Icon :icon="userIcon" :size="32"/>
+                            </div>
                         </template>
                         <template #drop>
                             <RouterLink to="/profile" class="block py-3 px-8 hover:bg-lime-400">Profile</RouterLink>
@@ -39,9 +42,9 @@
 <script setup lang="ts">
     import { RouterLink, RouterView } from 'vue-router';
     import userIcon from '../assets/profile-circle-svgrepo-com.svg';
-    import Icon from '../components/Icon.vue';
+    import Icon from '@/ui/Icon.vue';
     import homeIcon from '@/assets/home-svgrepo-com.svg';
-    import DropDown from '@/components/DropDown.vue';
+    import DropDown from '@/ui/DropDown.vue';
 </script>
 
 <style scoped>

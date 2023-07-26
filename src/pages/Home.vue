@@ -37,8 +37,8 @@
 </template>
 
 <script setup lang="ts">
-import Button from '@/components/Button.vue';
-import PageTitle from '@/components/PageTitle.vue';
+import Button from '@/ui/Button.vue';
+import PageTitle from '@/ui/PageTitle.vue';
 import { ref } from 'vue';
 
 const cash = ref(12.05);

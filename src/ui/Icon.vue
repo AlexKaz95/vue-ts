@@ -1,5 +1,5 @@
 <template>
-    <component :is="icon" :width="size" :height="size"></component>
+    <component :is="icon" :width="size" :height="size" class="inline" ></component>
 </template>
 
 <script setup lang="ts">

@@ -1,15 +1,17 @@
 <template>
-    <button :type="type" :class="buttonClass" @click.prevent="emit('click')">{{text}}</button>
+    <button :type="type" :class="buttonClass" @click.prevent="$emit('click')">{{text}}</button>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+
     defineProps<{
         type: 'submit' | 'button';
         text: string;
+        disabled?: boolean;
     }>();
 
-    const emit = defineEmits<{
+    defineEmits<{
         click: [];
     }>();
 
