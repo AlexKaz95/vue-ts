@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-    import PageTitle from '@/components/PageTitle.vue';
+    import PageTitle from '@/ui/PageTitle.vue';
 </script>
 
 <style scoped>

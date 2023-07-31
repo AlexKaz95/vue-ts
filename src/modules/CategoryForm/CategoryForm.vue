@@ -1,25 +1,29 @@
 <template>
 <div class="p-10">
     <form action="">
+        <pre>{{form}}</pre>
         <Input
             placeholder="Type the category name" 
             type="text" 
             id="categories"
-            v-model="name"
+            v-model="form.name.value"
             label="Categories"
-            error="Required"
+            :valid="form.name.valid"
+            :error="form.name.error.required"
         />
         <Input
-            v-model="limit" 
+            v-model="form.limit.value" 
             placeholder="Type the limit for category" 
             type="number" 
             id="limit"
             label="Minimum Limit"
-            error="Required"
+            :valid="form.limit.valid"
+            :error="form.limit.error.required"
         />
         <Button 
             type="submit"
-            :text="mode === MODE.CREATE ? 'Create' : 'Edit'"
+            :text="buttonText"
+            :disabled="!valid"
             @click="clickHandler"
         />
     </form>
@@ -33,6 +37,8 @@
     import { MODE } from '@/constants/formModes'
     import { CategoryId } from '@/entities';
     import { useCategoryStore } from '@/store/category';
+    import { createOverThan, required } from '@/utils/validators';
+import { useForm } from '@/hooks/useForm';
 
     const props = defineProps<{
         mode: MODE;
@@ -41,30 +47,42 @@
 
     const emits = defineEmits<{
         done: []
-    }>()
+    }>();
     
+    const buttonText = computed(() => props.mode === MODE.CREATE ? 'Create' : 'Edit')
     const categoryStore = useCategoryStore();
     const id = ref<CategoryId>(props.selectedCategoryId ?? categoryStore.nextId);
     const selectedCategory = computed(() => categoryStore.getCategoryById(id.value));
-    const name = ref<string>(selectedCategory.value?.name ?? '');
-    const limit = ref<number>(selectedCategory.value?.limit ?? 0);
+
+    const initConfig = {
+        name: {
+            value: selectedCategory.value?.name ?? '',
+            validators: [required],
+        },
+        limit: {
+            value: selectedCategory.value?.limit ?? 0,
+            validators: [required, createOverThan(0)],
+        },
+    };
+
+    const {valid, form} = useForm(initConfig);
 
     const clickHandler = () => {
         if (props.mode === 'create') {
             categoryStore.add({
-                name: name.value,
+                name: form.name.value,
                 id: id.value,
-                limit: limit.value ?? 0,
+                limit: form.limit.value ?? 0,
             });
         } else {
             categoryStore.update({
-                name: name.value,
+                name: form.name.value,
                 id: id.value,
-                limit: limit.value,
+                limit: form.limit.value,
             }, id.value)
         };
         emits('done');
-    }
+    };
 </script>
 
 <style scoped>

@@ -2,10 +2,13 @@
     <header class="header  bg-lime-300">
         <div class="container py-4">
             <nav class="nav flex gap-x-3 justify-between items-center">
-                <div class="logo">
+                <div class="logo flex items-center gap-x-2">
                     <RouterLink to="/" exact-active-class="stroke-2">
                         <Icon :icon="homeIcon" :size="32" class=""/>
                     </RouterLink>
+                    <span class="date">
+                        {{ dateFormatter(date, DATE_FORMAT.DATE_TIME) }}
+                    </span>
                 </div>
                 <div class="menu flex gap-x-3">
                     <RouterLink to="/categories" active-class="font-bold">Categories</RouterLink>
@@ -23,7 +26,7 @@
                         </template>
                         <template #drop>
                             <RouterLink to="/profile" class="block py-3 px-8 hover:bg-lime-400">Profile</RouterLink>
-                            <RouterLink to="/login" class="block py-3 px-8 hover:bg-lime-400">Log Out</RouterLink>
+                            <a href="#" @click.prevent="logout" class="block py-3 px-8 hover:bg-lime-400">Log Out</a>
                         </template>
                     </DropDown>
                 </div>
@@ -40,11 +43,31 @@
 </template>
 
 <script setup lang="ts">
-    import { RouterLink, RouterView } from 'vue-router';
+    import { RouterLink, RouterView, useRouter } from 'vue-router';
     import userIcon from '../assets/profile-circle-svgrepo-com.svg';
     import Icon from '@/ui/Icon.vue';
     import homeIcon from '@/assets/home-svgrepo-com.svg';
     import DropDown from '@/ui/DropDown.vue';
+    import { onMounted, onUnmounted, ref } from 'vue';
+    import {dateFormatter, DATE_FORMAT} from '@/utils/dateFormatter';
+
+    const router = useRouter();
+    onMounted(() => {
+        interval = setInterval(() => {
+            date.value = new Date();
+        }, 1000)
+    })
+    const date = ref(new Date());
+    let interval: NodeJS.Timer | null = null;
+
+    const logout = () => {
+        console.log('logout');
+        router.push('/login?message=logout')
+    }
+    
+    onUnmounted(() => {
+        interval && clearTimeout(interval);
+    })
 </script>
 
 <style scoped>

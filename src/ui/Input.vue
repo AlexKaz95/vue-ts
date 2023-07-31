@@ -1,7 +1,7 @@
 <template>
     <div class="input-container mb-4">
         <label :for="id" class="block mb-1">{{ label }}</label>
-        <input v-model="value" :placeholder="placeholder" :type="type" :id="id" :class="inputClass"/>
+        <input v-model="value" :id="id" :class="inputClass" v-bind="$attrs" @input="trigger"/>
         <small class="block text-red-800">{{ error }}</small>
     </div>
 </template>
@@ -12,10 +12,8 @@
     const props = defineProps<{
         id: string;
         label: string;
-        type: 'number' | 'text' | 'mail' | 'password';
-        placeholder?: string;
         error: string;
-        modelValue: any
+        modelValue: any;
     }>();
 
     const emit = defineEmits<{
@@ -32,6 +30,9 @@
             emit('update:modelValue', value)
         }
     });
+
+    const trigger = () => console.log('changed')
+
 </script>
 
 <style scoped>

@@ -1,19 +1,33 @@
 <template>
-    <button :type="type" :class="buttonClass" @click.prevent="$emit('click')">{{text}}</button>
+    <button 
+        :type="type" 
+        :class="[buttonClass, {disabled: disabled}]" 
+        @click="handler" 
+        :disabled="disabled"
+    >
+        {{text}}
+    </button>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 
-    defineProps<{
+    const props = defineProps<{
         type: 'submit' | 'button';
         text: string;
         disabled?: boolean;
     }>();
 
-    defineEmits<{
+    const emits = defineEmits<{
         click: [];
     }>();
+
+    const handler = (e: Event) => {
+        if (props.type == 'button'){
+            e.preventDefault();
+            emits('click');
+        } 
+    }
 
     const buttonClass = computed(() => ([
         'self-end',
@@ -31,4 +45,8 @@ import { computed } from 'vue';
 </script>
 
 <style scoped>
+.disabled{
+    color: #999;
+    background-color: #ccc;
+}
 </style>
