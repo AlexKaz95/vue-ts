@@ -22,10 +22,10 @@
     import DeleteIconButton from '@/components/DeleteIconButton.vue'
     import EditIconButton from '@/components/EditIconButton.vue'
     import { MODE } from '@/constants/formModes';
-    import { CategoryId, CategoryOptions } from '@/entities';
     import { useModalWindow } from '@/ui/ModalWindow/useModalWindow';
-    import { useCategoryStore } from '@/store/category';
     import { computed, ref } from 'vue';
+    import { useCategoryStore } from '@/entities/category/store/category';
+    import { CategoryOptions, CategoryId } from '@/entities/category/types';
 
     const tableOptions: TableOptions<CategoryOptions>[] = [
         {id: 'name', title: 'Name'},

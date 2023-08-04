@@ -1,13 +1,5 @@
 import { reactive, ref, watch } from "vue";
-
-export  type UseFieldOption = {
-    value: any;
-    validators: Function[];
-}
-
-export type FieldErrors = {
-    [key: string]: string;
-}
+import { UseFieldOption, FieldErrors } from "../types";
 
 export const useField = (init: UseFieldOption) => {
     const value = ref(init.value);

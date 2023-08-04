@@ -1,44 +1,44 @@
 <template>
 <div class="p-10">
-    <form action="">
-        <pre>{{form}}</pre>
-        <Input
-            placeholder="Type the category name" 
-            type="text" 
-            id="categories"
-            v-model="form.name.value"
-            label="Categories"
-            :valid="form.name.valid"
-            :error="form.name.error.required"
-        />
-        <Input
-            v-model="form.limit.value" 
-            placeholder="Type the limit for category" 
-            type="number" 
-            id="limit"
-            label="Minimum Limit"
-            :valid="form.limit.valid"
-            :error="form.limit.error.required"
-        />
-        <Button 
-            type="submit"
-            :text="buttonText"
-            :disabled="!valid"
-            @click="clickHandler"
-        />
-    </form>
+    <Form :init-config="initConfig" @submit="submitHandler">
+        <template #fields="{form, valid}">
+            <Input
+                placeholder="Type the category name" 
+                type="text" 
+                id="categories"
+                v-model="form.name.value"
+                label="Categories"
+                :valid="form.name.valid"
+                :error="form.name.error.required"
+            />
+            <Input
+                v-model="form.limit.value" 
+                placeholder="Type the limit for category" 
+                type="number" 
+                id="limit"
+                label="Minimum Limit"
+                :valid="form.limit.valid"
+                :error="form.limit.error.required"
+            />
+            <Button 
+                type="submit"
+                :text="buttonText"
+                :disabled="!valid"
+            />
+        </template>
+    </Form>
 </div>
 </template>
 
 <script setup lang="ts">
-    import { computed, ref } from 'vue';
+    import Form from '@/ui/Form/Form.vue';
     import Input from '@/ui/Input.vue';
     import Button from '@/ui/Button.vue';
-    import { MODE } from '@/constants/formModes'
-    import { CategoryId } from '@/entities';
-    import { useCategoryStore } from '@/store/category';
+    import { MODE } from '@/constants/formModes';
+    import { useCategoryStore } from '@/entities/category/store/category';
+    import { CategoryId } from '@/entities/category/types';
     import { createOverThan, required } from '@/utils/validators';
-import { useForm } from '@/hooks/useForm';
+    import { computed, ref } from 'vue';
 
     const props = defineProps<{
         mode: MODE;
@@ -65,9 +65,7 @@ import { useForm } from '@/hooks/useForm';
         },
     };
 
-    const {valid, form} = useForm(initConfig);
-
-    const clickHandler = () => {
+    const submitHandler = (form: any) => {
         if (props.mode === 'create') {
             categoryStore.add({
                 name: form.name.value,

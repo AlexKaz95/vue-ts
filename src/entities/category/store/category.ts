@@ -21,6 +21,9 @@ export const useCategoryStore = defineStore('categoryStore', {
     getters: {
         getCategoryById(state: State): (id: CategoryId) => Category {
             return (id) => state.categories[id];
+        },
+        categoryNames(state: State): string[] {
+            return Object.values(state.categories).map(cat => cat.name);
         }
     },
     actions: {

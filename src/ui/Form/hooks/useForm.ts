@@ -1,16 +1,6 @@
 import { reactive, ref, watch } from "vue";
 import { useField } from "./useField";
-
-export type UseFormOptions = {
-    [key: string]: {
-        value: any;
-        validators: Function[];
-    }
-}
-
-export type FormReactive = {
-    [key: string]: any
-}
+import { UseFormOptions, FormReactive } from "../types";
 
 export const useForm = (init: UseFormOptions) => {
     const form = reactive({}) as FormReactive;
