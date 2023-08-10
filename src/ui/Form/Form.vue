@@ -1,5 +1,5 @@
 <template>
-    <form action="" class="mb-4" @submit.prevent="emits('submit', form)">
+    <form action="" class="mb-4" @submit.prevent="submitHandler">
         <slot name="fields" :form="form" :valid="valid"></slot>
     </form>
 </template>
@@ -16,6 +16,10 @@ const emits = defineEmits<{
 }>()
 
 const {form, valid} = useForm(props.initConfig);
+
+const submitHandler = () => {
+    emits('submit', form);
+}
 </script>
 
 <style scoped>

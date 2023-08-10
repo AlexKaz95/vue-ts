@@ -4,7 +4,7 @@ export type RecordId = string;
 
 export type Record = {
     readonly id: RecordId;
-    readonly date: Date;
+    readonly date: number;
     title: string;
     spent: number;
     categoryId?: CategoryId;
@@ -14,3 +14,5 @@ export type Record = {
 export type RecordList = {
     [key: RecordId]: Record
 }
+
+export type RecordOptions = keyof Record;

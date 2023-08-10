@@ -17,6 +17,7 @@ export type FormReactive = {
 export  type UseFieldOption = {
     value: any;
     validators: Function[];
+    disabledOverIds?: Function;
 }
 
 export type FieldErrors = {

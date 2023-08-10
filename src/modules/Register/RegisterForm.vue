@@ -1,6 +1,5 @@
 <template>
-    <div class="p-10">
-        <PageTitle text="Register" class="mb-10 text-center"/>
+    <PageTitle text="Register" class="mb-10 text-center"/>
     <Form :init-config="initConfig" @submit="submitHandler">
         <template #fields="{form, valid}">
             <Input
@@ -10,7 +9,7 @@
                 v-model="form.email.value"
                 label="Email"
                 :valid="form.email.valid"
-                :error="form.email.error.required"
+                :error="(Object.values(form.email.error).find(e => !!e) as string)"
             />
             <Input
                 v-model="form.password.value" 
@@ -18,7 +17,7 @@
                 id="password"
                 label="Password"
                 :valid="form.password.valid"
-                :error="form.password.error.required"
+                :error="(Object.values(form.password.error).find(e => !!e) as string)"
             />
             <Input
                 v-model="form.name.value" 
@@ -27,14 +26,14 @@
                 id="name"
                 label="Name"
                 :valid="form.name.valid"
-                :error="form.name.error.required"
+                :error="(Object.values(form.name.error).find(e => !!e) as string)"
             />
             <Checkbox
                 v-model="form.agreement.value" 
                 id="agreement"
                 label="I agree with the your rules..."
                 :valid="form.agreement.valid"
-                :error="form.agreement.error.required"
+                :error="(Object.values(form.agreement.error).find(e => !!e) as string)"
             />
             <hr class="mb-3">
             <Button 
@@ -45,40 +44,43 @@
             />
             </template>
         </Form>
-    <div class="">
+    <div class="text-center">
         Already have account? <RouterLink to="/login" tag="a" class="text-lime-600 underline">Go to login</RouterLink>
     </div>
-</div>
 </template>
 
 <script setup lang="ts">
-import Input from '@/ui/Input.vue';
-import Form from '@/ui/Form/Form.vue';
-import Button from '@/ui/Button.vue';
-import PageTitle from '@/ui/PageTitle.vue';
-import Checkbox from '@/ui/Checkbox.vue';
+    import Input from '@/shared/ui/Input.vue';
+    import Form from '@/shared/ui/Form/Form.vue';
+    import Button from '@/shared/ui/Button.vue';
+    import PageTitle from '@/shared/ui/PageTitle.vue';
+    import Checkbox from '@/shared/ui/Checkbox.vue';
+    import { createMinLenght, emailValidator, required } from '@/shared/utils/validators';
+    import { useRouter } from 'vue-router';
 
+    const router = useRouter();
     const initConfig = {
         email: {
             value: '',
-            validators: []
+            validators: [required, emailValidator]
         },
         password: {
             value: '',
-            validators: []
+            validators: [required, createMinLenght(8)]
         },
         name: {
             value: '',
-            validators: []
+            validators: [required]
         },
         agreement: {
             value: false,
-            validators: []
+            validators: [required]
         }
     }
 
     const submitHandler = () => {
-
+        console.log('register');
+        router.push('/')
     }
 
 </script>

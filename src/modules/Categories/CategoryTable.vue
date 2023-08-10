@@ -16,20 +16,28 @@
 </template>
 
 <script setup lang="ts">
-    import { Table, type TableOptions } from '@/ui/Table';
+    import { TableOptions, Table } from '@/ui/Table';
     import ModalWindow from '@/ui/ModalWindow/ModalWindow.vue';
-    import CategoryForm from '@/modules/CategoryForm/CategoryForm.vue';
-    import DeleteIconButton from '@/components/DeleteIconButton.vue'
-    import EditIconButton from '@/components/EditIconButton.vue'
-    import { MODE } from '@/constants/formModes';
-    import { useModalWindow } from '@/ui/ModalWindow/useModalWindow';
+    import { MODE } from '@/shared/constants/formModes';
+    import DeleteIconButton from '@/components/DeleteIconButton.vue';
+    import EditIconButton from '@/components/EditIconButton.vue';
     import { computed, ref } from 'vue';
     import { useCategoryStore } from '@/entities/category/store/category';
-    import { CategoryOptions, CategoryId } from '@/entities/category/types';
+    import { CategoryOptions, CategoryId, Category } from '@/entities/category/types';
+    import { useModalWindow } from '@/ui/ModalWindow/useModalWindow';
 
-    const tableOptions: TableOptions<CategoryOptions>[] = [
-        {id: 'name', title: 'Name'},
-        {id: 'limit', title: 'Spent limit'},
+    const tableOptions: TableOptions<CategoryOptions, Category>[] = [
+        {
+            id: 'name', 
+            title: 'Name', 
+            sorted: true,
+        },
+        {
+            id: 'limit', 
+            title: 'Spent limit', 
+            sorted: true,
+            getField: (field) => field.limit?.toString() || 'Unlimited'
+        },
     ];
     
     const selectedId = ref();
@@ -44,4 +52,4 @@
 
 <style scoped>
 
-</style>
+</style>@/ui/Table@/ui/ModalWindow/useModalWindow

@@ -1,8 +1,8 @@
 <template>
-    <div class="input-container mb-4">
+    <div class="input-container mb-4" :class="{disabled}">
         <label :for="id" class="block mb-1">{{ label }}</label>
-        <input v-model="value" :id="id" :class="inputClass" v-bind="$attrs" @input="trigger"/>
-        <small class="block text-red-800">{{ error }}</small>
+        <input v-model="value" :id="id" :class="inputClass" v-bind="$attrs" @input="trigger" :disabled="disabled"/>
+        <small class="block text-red-800 absolute">{{ error }}</small>
     </div>
 </template>
 
@@ -14,6 +14,7 @@
         label: string;
         error: string;
         modelValue: any;
+        disabled?: boolean;
     }>();
 
     const emit = defineEmits<{
@@ -36,5 +37,7 @@
 </script>
 
 <style scoped>
-    
+    .disabled label{
+        color: gray;
+    }
 </style>

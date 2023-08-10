@@ -3,11 +3,13 @@ import { UseFieldOption, FieldErrors } from "../types";
 
 export const useField = (init: UseFieldOption) => {
     const value = ref(init.value);
-    const valid = ref(true);
+    const valid = ref(false);
     const error = reactive({}) as FieldErrors;
+    const disabledId = ref();
 
     watch(value, (newVal) => {
         valid.value = true;
+        disabledId.value = init.disabledOverIds? init.disabledOverIds(newVal) : '';
         for (const fn of init.validators){
             const errorMessage = fn(newVal);
             const isValid = !errorMessage;
@@ -21,5 +23,6 @@ export const useField = (init: UseFieldOption) => {
         value,
         valid,
         error,
+        disabledId
     };
 }

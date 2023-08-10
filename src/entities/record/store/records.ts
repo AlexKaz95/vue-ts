@@ -1,5 +1,6 @@
-import { RecordId, RecordList } from "@/entities";
+
 import { defineStore } from "pinia";
+import { RecordList, RecordId, Record } from "../types";
 
 type State = {
     records: RecordList;
@@ -8,10 +9,33 @@ type State = {
 
 export const useRecordStore = defineStore('recordStore',{
     state: (): State => ({
-        records: {},
-        nextId: '1',
+        records: {
+            '1': {
+                date: 2134567879,
+                id: '1',
+                title: 'First spent',
+                spent: 400,
+            },
+        },
+        nextId: '2',
     }),
     actions:{
+        add(data: Record){
+            this.records[this.nextId] = data;
+            this.nextId = (+this.nextId+1).toString();
+        },
 
+        delete(id: RecordId){
+            delete this.records[id];
+        },
+
+        update(data: Record, id: RecordId){
+            this.records[id] = data;
+        }
+    },
+    getters: {
+        getRecordById(state: State): (id: RecordId) => Record {
+            return (id) => state.records[id];
+        },
     }
 })

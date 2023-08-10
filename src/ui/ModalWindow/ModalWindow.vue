@@ -2,7 +2,7 @@
     <Teleport to="body">
         <Transition name="back">
             <div v-if="isOpen" class="absolute m-auto w-full h-full top-0 left-0 bga flex items-center justify-center" @click.stop="$emit('close')">
-                <div class="content bg-white w-1/2" @click.stop="false">
+                <div class="content bg-white w-1/2 p-10 max-w-md" @click.stop="false">
                     <slot></slot>
                 </div>
             </div>

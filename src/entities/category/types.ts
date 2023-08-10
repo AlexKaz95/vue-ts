@@ -3,7 +3,8 @@ export type CategoryId = string;
 export type Category = {
     readonly id: CategoryId;
     name: string;
-    limit: number;
+    limit?: number;
+    unlimited: boolean;
 }
 
 export type CategoryOptions = keyof Category;

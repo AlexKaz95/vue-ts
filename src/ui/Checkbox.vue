@@ -1,8 +1,8 @@
 <template>
-    <div class="input-container mb-4 flex items-center">
+    <div class="input-container mb-4">
         <input v-model="value" :placeholder="placeholder" type="checkbox" :id="id" class="custom-checkbox"/>
-        <label :for="id" class="inline">{{ label }}</label>
-        <small class="block text-red-800">{{ error }}</small>
+        <label :for="id" class="block">{{ label }}</label>
+        <small class="block text-red-800 absolute">{{ error }}</small>
     </div>
 </template>
 
@@ -39,19 +39,18 @@
     }
 
     .custom-checkbox+label {
-        display: inline-flex;
+        display: flex;
         align-items: center;
         user-select: none;
     }
     .custom-checkbox+label::before {
         content: ' ';
         display: inline-block;
-        width: 1.5em;
-        height: 1.5em;
+        width: 1.4em;
+        height: 1.4em;
         flex-shrink: 0;
         flex-grow: 0;
-        border: 1px solid #adb5bd;
-        border-radius: 0.25em;
+        border: 1px solid #ddd;
         margin-right: 0.5em;
         background-repeat: no-repeat;
         background-position: center center;
