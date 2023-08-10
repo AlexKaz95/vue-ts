@@ -1,7 +1,7 @@
 <template>
     <div class="input-container mb-4" :class="{disabled}">
         <label :for="id" class="block mb-1">{{ label }}</label>
-        <input v-model="value" :id="id" :class="inputClass" v-bind="$attrs" @input="trigger" :disabled="disabled"/>
+        <input v-model="value" :id="id" :class="inputClass" v-bind="$attrs" :disabled="disabled"/>
         <small class="block text-red-800 absolute">{{ error }}</small>
     </div>
 </template>
@@ -32,7 +32,6 @@
         }
     });
 
-    const trigger = () => console.log('changed')
 
 </script>
 

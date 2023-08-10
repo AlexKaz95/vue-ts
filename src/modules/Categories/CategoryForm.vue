@@ -1,6 +1,7 @@
 <template>
     <Form :init-config="initConfig" @submit="submitHandler">
         <template #fields="{form, valid}">
+            <pre>{{ form }}</pre>
             <Input
                 placeholder="Type the category name" 
                 type="text" 
@@ -42,14 +43,12 @@
 import { useCategoryStore } from '@/entities/category/store/category';
 import { CategoryId } from '@/entities/category/types';
 import { MODE } from '@/shared/constants/formModes';
-import { createOverThan } from '@/shared/utils/validators';
+import { createOverThan,required } from '@/shared/utils/validators';
 import { computed, ref } from 'vue';
-import { required } from 'vuelidate/lib/validators';
 import Button from '@/ui/Button.vue';
 import Input from '@/ui/Input.vue';
 import Checkbox from '@/ui/Checkbox.vue';
 import Form from '@/ui/Form/Form.vue';
-
 
     const props = defineProps<{
         mode: MODE;

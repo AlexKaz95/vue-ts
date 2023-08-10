@@ -25,6 +25,7 @@
     import { useCategoryStore } from '@/entities/category/store/category';
     import { CategoryOptions, CategoryId, Category } from '@/entities/category/types';
     import { useModalWindow } from '@/ui/ModalWindow/useModalWindow';
+    import CategoryForm from './CategoryForm.vue';
 
     const tableOptions: TableOptions<CategoryOptions, Category>[] = [
         {
@@ -52,4 +53,4 @@
 
 <style scoped>
 
-</style>@/ui/Table@/ui/ModalWindow/useModalWindow
+</style>

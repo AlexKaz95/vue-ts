@@ -10,6 +10,7 @@ type State = {
 export const useCategoryStore = defineStore('categoryStore', {
     state: (): State => ({
         categories: {
+            '0': {id: '0', name: 'No category', unlimited: true},
             '1': {id: '1', name: 'Home', limit: 1000, unlimited: false},
             '2': {id: '2', name: 'Girlfriend', limit: 2000, unlimited: false},
             '3': {id: '3', name: 'Food', limit: 4000, unlimited: false},
@@ -24,13 +25,15 @@ export const useCategoryStore = defineStore('categoryStore', {
         },
         categoryNames(state: State): string[] {
             return Object.values(state.categories).map(cat => cat.name);
+        },
+        entries(state: State): [CategoryId, string][] {
+            return Object.values(state.categories).map(cat => [cat.id, cat.name]);
         }
     },
     actions: {
         add(data: Category){
             this.categories[this.nextId] = data;
             this.nextId = (+this.nextId+1).toString();
-            console.log(this.nextId)
         },
 
         delete(id: CategoryId){

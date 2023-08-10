@@ -15,6 +15,7 @@ export const useRecordStore = defineStore('recordStore',{
                 id: '1',
                 title: 'First spent',
                 spent: 400,
+                categoryId: '0'
             },
         },
         nextId: '2',

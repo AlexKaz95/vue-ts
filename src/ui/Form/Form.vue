@@ -15,10 +15,11 @@ const emits = defineEmits<{
     submit: [any];
 }>()
 
-const {form, valid} = useForm(props.initConfig);
+const {form, valid, validate} = useForm(props.initConfig);
 
 const submitHandler = () => {
-    emits('submit', form);
+    validate();
+    if (valid.value) emits('submit', form);
 }
 </script>
 

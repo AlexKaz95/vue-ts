@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 
-import RegisterForm from '@/modules/RegisterForm/RegisterForm.vue';
+import RegisterForm from '@/modules/Register/RegisterForm.vue';
 import ModalWindow from '@/ui/ModalWindow/ModalWindow.vue';
 
 </script>

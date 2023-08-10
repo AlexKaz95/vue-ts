@@ -45,7 +45,6 @@ const cash = ref(12.05);
 const currency = ref('RUB')
 
 const  clickHandler = () => {
-    console.log('refresh');
 }
 </script>
 

@@ -49,7 +49,7 @@
     import homeIcon from '@/assets/home-svgrepo-com.svg';
     import DropDown from '@/ui/DropDown.vue';
     import { onMounted, onUnmounted, ref } from 'vue';
-    import {dateFormatter, DATE_FORMAT} from '@/utils/dateFormatter';
+    import {dateFormatter, DATE_FORMAT} from '@/shared/utils/dateFormatter';
 
     const router = useRouter();
     onMounted(() => {
@@ -61,7 +61,6 @@
     let interval: NodeJS.Timer | null = null;
 
     const logout = () => {
-        console.log('logout');
         router.push('/login?message=logout')
     }
     

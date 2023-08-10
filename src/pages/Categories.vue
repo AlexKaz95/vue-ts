@@ -13,9 +13,9 @@
 <script setup lang="ts">
     import PageTitle from '@/ui/PageTitle.vue';
     import Button from '@/ui/Button.vue';
-    import CategoryForm from '@/modules/CategoryForm/CategoryForm.vue';
-    import CategoryTable from '@/modules/CategoryTable/CategoryTable.vue';
-    import { MODE } from '@/constants/formModes';
+    import CategoryForm from '@/modules/Categories/CategoryForm.vue';
+    import CategoryTable from '@/modules/Categories/CategoryTable.vue';
+    import { MODE } from '@/shared/constants/formModes';
     import { useModalWindow } from '@/ui/ModalWindow/useModalWindow';
     import ModalWindow from '@/ui/ModalWindow/ModalWindow.vue';
 

@@ -50,11 +50,11 @@
 </template>
 
 <script setup lang="ts">
-    import Input from '@/shared/ui/Input.vue';
-    import Form from '@/shared/ui/Form/Form.vue';
-    import Button from '@/shared/ui/Button.vue';
-    import PageTitle from '@/shared/ui/PageTitle.vue';
-    import Checkbox from '@/shared/ui/Checkbox.vue';
+    import Input from '@/ui/Input.vue';
+    import Form from '@/ui/Form/Form.vue';
+    import Button from '@/ui/Button.vue';
+    import PageTitle from '@/ui/PageTitle.vue';
+    import Checkbox from '@/ui/Checkbox.vue';
     import { createMinLenght, emailValidator, required } from '@/shared/utils/validators';
     import { useRouter } from 'vue-router';
 
@@ -79,7 +79,6 @@
     }
 
     const submitHandler = () => {
-        console.log('register');
         router.push('/')
     }
 

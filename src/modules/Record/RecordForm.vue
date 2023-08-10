@@ -7,15 +7,14 @@
                 type="text"
                 label="Title"
                 placeholder="What was spent on?"
-                :model-value="form.title.value"
+                v-model="form.title.value"
                 :error="(Object.values(form.title.error).find(e => !!e) as string)"
             />
             <Selector 
                 id="category"
                 :options="categories"
                 label="Category"
-                default-value="No category"
-                :model-value="form.category.value"
+                v-model="form.category.value"
                 :error="(Object.values(form.category.error).find(e => !!e) as string)"
             />
             <Input 
@@ -23,7 +22,7 @@
                 type="number"
                 label="Spent"
                 placeholder="How mush was spent?"
-                :model-value="form.spent.value"
+                v-model="form.spent.value"
                 :error="(Object.values(form.spent.error).find(e => !!e) as string)"
             />
             <Button 
@@ -40,6 +39,7 @@
     import Button from '@/ui/Button.vue';
     import Form from '@/ui/Form/Form.vue';
     import PageTitle from '@/ui/PageTitle.vue';
+    import Selector from '@/ui/Selector.vue';
     import { useCategoryStore } from '@/entities/category/store/category';
     import { useRecordStore } from '@/entities/record/store/records';
     import { RecordId } from '@/entities/record/types';
@@ -53,17 +53,17 @@ const props = defineProps<{
 }>();
 
 const emits = defineEmits<{
-    'submit': []
+    'done': []
 }>();
 
 const recordStore = useRecordStore();
 const categoryStore = useCategoryStore();
-const id = ref<RecordId>(props.selectedRecordId ?? categoryStore.nextId);
+const id = ref<RecordId>(props.selectedRecordId ?? recordStore.nextId);
 
 const selectedRecord = computed(() => recordStore.getRecordById(id.value));
-const categories = computed(() => categoryStore.categoryNames);
+const categories = computed(() => categoryStore.entries);
 const buttonText = computed(() => props.mode === MODE.CREATE ? 'Create' : 'Edit')
-const titleText = computed(() => props.mode === MODE.CREATE ? 'Create new record' : 'Edit record')
+const titleText = computed(() => props.mode === MODE.CREATE ? 'Create new record' : 'Edit record');
 
 const initConfig = {
     title: {
@@ -71,7 +71,7 @@ const initConfig = {
         validators: [required]
     },
     category: {
-        value: selectedRecord.value?.categoryId,
+        value: selectedRecord.value?.categoryId || '0',
         validators: []
     },
     spent: {
@@ -86,18 +86,20 @@ const submitHandler = (form: any) => {
             id: id.value,
             date: Date.now(),
             title: form.title.value,
-            spent: form.spent.value
+            spent: form.spent.value,
+            categoryId: form.category.value
         });
     } else {
         recordStore.update({
             id: id.value,
             date: selectedRecord.value.date,
             title: form.title.value,
-            spent: form.spent.value
+            spent: form.spent.value,
+            categoryId: form.category.value
         }, 
         id.value);
     }
-    emits('submit');
+    emits('done');
 }
 </script>
 

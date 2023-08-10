@@ -7,7 +7,7 @@ export type Record = {
     readonly date: number;
     title: string;
     spent: number;
-    categoryId?: CategoryId;
+    categoryId: CategoryId;
     description?: string;
 }
 

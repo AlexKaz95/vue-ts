@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import LoginForm from '@/modules/LoginForm/LoginForm.vue';
+import LoginForm from '@/modules/Login/LoginForm.vue';
 import ModalWindow from '@/ui/ModalWindow/ModalWindow.vue';
 
 </script>

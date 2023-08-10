@@ -5,19 +5,19 @@
     </div>
     <hr>
     <ModalWindow :is-open="modalOpen" @close="toggleModal">
-        <RecordForm :mode="MODE.CREATE"/>
+        <RecordForm :mode="MODE.CREATE" @done="toggleModal()"/>
     </ModalWindow>
     <RecordTable />
 </template>
 
 <script setup lang="ts">
-import RecordForm from '@/modules/RecordForm/RecordForm.vue';
+import RecordForm from '@/modules/Record/RecordForm.vue';
 import ModalWindow from '@/ui/ModalWindow/ModalWindow.vue';
 import { useModalWindow } from '@/ui/ModalWindow/useModalWindow';
 import PageTitle from '@/ui/PageTitle.vue';
 import Button from '@/ui/Button.vue';
-import RecordTable from '@/modules/RecordTable/RecordTable.vue';
-import { MODE } from '@/constants/formModes'
+import RecordTable from '@/modules/Record/RecordTable.vue';
+import { MODE } from '@/shared/constants/formModes'
 
 const {modalOpen, toggleModal} = useModalWindow()
 
