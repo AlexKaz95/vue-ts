@@ -37,7 +37,23 @@
             id: 'limit', 
             title: 'Spent limit', 
             sorted: true,
-            getField: (field) => field.limit?.toString() || 'Unlimited'
+            getField: (field) => field.unlimited ? 'Unlimited' : (field.limit?.toString() || ''),
+            sortUp: (list) => {
+                return Object.values(list).sort((a: any, b: any) => {
+                    if (a.unlimited && b.unlimited) return 0;
+                    if (a.unlimited) return 1;
+                    if (b.unlimited) return -1;
+                    return a.limit.value <= b.limit.value ? -1 : 1
+                });
+            },
+            sortDown: (list) => {
+                return Object.values(list).sort((a: any, b: any) => {
+                    if (a.unlimited && b.unlimited) return 0;
+                    if (a.unlimited) return -1;
+                    if (b.unlimited) return 1;
+                    return a.limit.value >= b.limit.value ? 1 : -1
+                });
+            }
         },
     ];
     

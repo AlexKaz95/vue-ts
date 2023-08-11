@@ -3,7 +3,7 @@
     <Form :init-config="initConfig" @submit="submitHandler">
         <template #fields="{form, valid}">
             <Input
-                placeholder="Type the email" 
+                placeholder="Any valid email. We dont check it." 
                 type="email" 
                 id="email"
                 v-model="form.email.value"
@@ -15,9 +15,19 @@
                 v-model="form.password.value" 
                 type="password" 
                 id="password"
+                placeholder="Any password"
                 label="Password"
                 :valid="form.password.valid"
                 :error="(Object.values(form.password.error).find(e => !!e) as string)"
+            />
+            <Input
+                v-model="form.passwordRepeat.value" 
+                type="password" 
+                id="passwordRepeat"
+                placeholder="Repeat it."
+                label="Repeat Password"
+                :valid="form.passwordRepeat.valid"
+                :error="(Object.values(form.passwordRepeat.error).find(e => !!e) as string)"
             />
             <Input
                 v-model="form.name.value" 
@@ -65,6 +75,10 @@
             validators: [required, emailValidator]
         },
         password: {
+            value: '',
+            validators: [required, createMinLenght(8)]
+        },
+        passwordRepeat: {
             value: '',
             validators: [required, createMinLenght(8)]
         },

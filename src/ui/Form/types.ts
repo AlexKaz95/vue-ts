@@ -4,10 +4,7 @@ export type InitConfig = {
 }
 
 export type UseFormOptions = {
-    [key: string]: {
-        value: any;
-        validators: Function[];
-    }
+    [key: string]: UseFieldOption
 }
 
 export type FormReactive = {
@@ -17,7 +14,7 @@ export type FormReactive = {
 export  type UseFieldOption = {
     value: any;
     validators: Function[];
-    disabledOverIds?: Function;
+    disabled?: boolean;
 }
 
 export type FieldErrors = {

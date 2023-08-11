@@ -15,7 +15,8 @@ export const useForm = (init: UseFormOptions) => {
     for (const [key, config] of Object.entries(init)){
         form[key] = useField(config);
 
-        watch(() => form[key].value, (newVal) => {
+        watch([() => form[key].value, () => init[key].disabled], ([newVal, newInit]) => {
+            console.log(newVal, newInit)
             form[key].validate(newVal);
             valid.value = Object.values(form).reduce((acc, field) => acc && field.valid, true);
         });

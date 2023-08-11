@@ -3,7 +3,7 @@
     <Form :init-config="initConfig" @submit="submitHandler">
         <template #fields="{form, valid}">
             <Input
-                placeholder="Type the email" 
+                placeholder="Any valid email. We dont check it." 
                 type="email" 
                 id="email"
                 label="Email"
@@ -16,7 +16,7 @@
                 type="password" 
                 id="password"
                 label="Password"
-                placeholder="Type the password"
+                placeholder="Any password"
                 v-model="form.password.value" 
                 @blur="form.password.blur"
                 :valid="form.password.valid"

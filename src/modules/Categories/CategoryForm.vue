@@ -1,9 +1,8 @@
 <template>
     <Form :init-config="initConfig" @submit="submitHandler">
         <template #fields="{form, valid}">
-            <pre>{{ form }}</pre>
             <Input
-                placeholder="Type the category name" 
+                placeholder="What is the name?" 
                 type="text" 
                 id="categories"
                 v-model="form.name.value"
@@ -14,7 +13,7 @@
             <div class="flex justify-between items-end">
                 <Input
                     v-model="form.limit.value" 
-                    placeholder="Type the limit for category" 
+                    placeholder="What is the limit?" 
                     type="number" 
                     id="limit"
                     label="Maximum Limit"
@@ -23,7 +22,8 @@
                     :error="(Object.values(form.limit.error).find(e => !!e) as string)"
                 />
                 <Checkbox 
-                    v-model="form.unlimited.value" 
+                    v-model="form.unlimited.value"
+                    @update:model-value="toggleLimitField"
                     id="unlimited"
                     label="Unlimited"
                     :valid="form.unlimited.valid"
@@ -44,7 +44,7 @@ import { useCategoryStore } from '@/entities/category/store/category';
 import { CategoryId } from '@/entities/category/types';
 import { MODE } from '@/shared/constants/formModes';
 import { createOverThan,required } from '@/shared/utils/validators';
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import Button from '@/ui/Button.vue';
 import Input from '@/ui/Input.vue';
 import Checkbox from '@/ui/Checkbox.vue';
@@ -64,21 +64,25 @@ import Form from '@/ui/Form/Form.vue';
     const id = ref<CategoryId>(props.selectedCategoryId ?? categoryStore.nextId);
     const selectedCategory = computed(() => categoryStore.getCategoryById(id.value));
 
-    const initConfig = {
+    const initConfig = reactive({
         name: {
             value: selectedCategory.value?.name,
             validators: [required],
         },
         limit: {
             value: selectedCategory.value?.limit,
+            disabled: false,
             validators: [required, createOverThan(0)],
         },
         unlimited: {
             value:  selectedCategory.value?.unlimited,
-            disabledOverIds: (value: boolean) => value ? 'limit' : '',
             validators: [],
         }
-    };
+    });
+
+    const toggleLimitField = (newVal: boolean) => {
+        initConfig.limit.disabled = newVal;
+    }
 
     const submitHandler = (form: any) => {
         if (props.mode === 'create') {
